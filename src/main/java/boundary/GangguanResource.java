@@ -1,10 +1,9 @@
 package boundary;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import javax.inject.Inject;
 
@@ -15,7 +14,6 @@ import org.eclipse.microprofile.graphql.Query;
 import entity.Gangguan;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.cli.annotations.Description;
-import lombok.extern.java.Log;
 import service.GangguanService;
 
 @GraphQLApi
@@ -33,11 +31,14 @@ public class GangguanResource {
     // tgl_akhir.get());
     // }
 
-    @Query("gangguanByStatus")
-    @Description("Get all Gangguan")
-    public Uni<List<Gangguan>> gangguanByStatus(@Name("status") Optional<Integer> status,
-            @Name("tgl_awal") Optional<String> tgl_awal, @Name("tgl_akhir") Optional<String> tgl_akhir) {
-        return gangguanService.gangguanByStatus(1);
+    @Query("getGangguanByCustomFilter")
+    @Description("Get all Gangguan using custom filter, Experimental ")
+    public Uni<List<Gangguan>> getGangguanByCustomFilter(
+        @Name("status") Optional<Integer> status,
+        @Name("tgl_awal") Optional<LocalDate> tgl_awal,
+        @Name("tgl_akhir") Optional<LocalDate> tgl_akhir
+    ) {
+        return gangguanService.getGangguanByCustomFilter(status, tgl_awal, tgl_akhir);
     }
 
 }

@@ -54,15 +54,6 @@ public class ActorMovieEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Actor actor;
 
-
-    // public static Multi<ActorMovieEntity> getActorsByMovieQuery(Long movieId) {
-    //     return stream("#ActorMovieEntity.getByMovieId", movieId);
-    // }
-
-    // public static Multi<ActorMovieEntity> getMoviesByActorQuery(Long actorId) {
-    //     return stream("#ActorMovieEntity.getByActorId", actorId);
-    // }
-
     public String toString() {
         return this.getClass().getSimpleName() + "<" + this.id + ">";
     }

@@ -1,9 +1,12 @@
 package service;
 
-import java.sql.Date;
+
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Collections;
+
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,7 +21,7 @@ public class GangguanService {
     @Inject
     GangguanRepository gangguanRepository;
 
-    public Uni<List<Gangguan>> getAllGangguan(int status, Date tgl_awal, Date tgl_akhir) {
+    public Uni<List<Gangguan>> getAllGangguan() {
         return gangguanRepository
                 .listAll(Sort.by("tgl"))
                 .ifNoItem()
@@ -28,7 +31,12 @@ public class GangguanService {
                 .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
     }
 
-    public Uni<List<Gangguan>> gangguanByStatus(int status) {
-        return gangguanRepository.findByStatus(status);
+    public Uni<List<Gangguan>> getGangguanByCustomFilter(
+        Optional<Integer> status, 
+        Optional<LocalDate> tglAwal, 
+        Optional<LocalDate> tglAkhir
+    ) {
+
+        return gangguanRepository.customSearch(status,tglAwal,tglAkhir);
     }
 }

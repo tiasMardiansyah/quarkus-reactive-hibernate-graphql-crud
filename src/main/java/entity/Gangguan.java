@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import io.smallrye.graphql.api.Scalar.Date;
-import io.smallrye.graphql.api.Scalar.Int;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

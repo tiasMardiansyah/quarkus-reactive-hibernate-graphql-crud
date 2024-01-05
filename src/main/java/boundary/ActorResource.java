@@ -36,6 +36,8 @@ public class ActorResource {
     @Query("allActors")
     @Description("Get all Actors")
     public Uni<List<ActorDTO>> getAllActors() {
+
+        
         return actorService.getAllActors()
                 .onItem().transform(ActorDTO::from);
     }
