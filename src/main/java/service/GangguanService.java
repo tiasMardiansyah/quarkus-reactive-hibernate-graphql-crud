@@ -1,6 +1,5 @@
 package service;
 
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Collections;
@@ -32,19 +31,18 @@ public class GangguanService {
                 .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
     }
 
-    public Uni<List<Gangguan>> getGangguanByCustomFilter(
-        Optional<Integer> status, 
-        Optional<LocalDate> tglAwal, 
-        Optional<LocalDate> tglAkhir
-    ) {
+    public Uni<List<Gangguan>> getGangguanByCustomFilter(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
 
-        // lakukan pengolahan data disini
-
-        return gangguanRepository.allGangguanWithFilter(status, tglAwal, tglAkhir)
+        return gangguanRepository
+                .allGangguanWithFilter(
+                        status,
+                        tglAwal,
+                        tglAkhir,
+                        null)
                 .ifNoItem()
                 .after(Duration.ofMillis(10000))
                 .fail()
                 .onFailure()
-                .recoverWithUni(t -> Uni.createFrom().item(Collections.emptyList()));
+                .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
     }
 }

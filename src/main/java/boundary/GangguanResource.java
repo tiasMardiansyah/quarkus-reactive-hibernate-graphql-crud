@@ -35,10 +35,10 @@ public class GangguanResource {
     @Description("Get all Gangguan using custom filter, Experimental ")
     public Uni<List<Gangguan>> getGangguanByCustomFilter(
         @Name("status") Optional<Integer> status,
-        @Name("tgl_awal") Optional<LocalDate> tgl_awal,
-        @Name("tgl_akhir") Optional<LocalDate> tgl_akhir
+        @Name("tgl_awal") Optional<LocalDate> tglAwal,
+        @Name("tgl_akhir") Optional<LocalDate> tglAkhir
     ) {
-        return gangguanService.getGangguanByCustomFilter(status, tgl_awal, tgl_akhir);
+        return gangguanService.getGangguanByCustomFilter(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
     }
 
 }

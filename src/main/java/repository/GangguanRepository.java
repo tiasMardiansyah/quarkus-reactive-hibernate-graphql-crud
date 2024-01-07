@@ -10,39 +10,41 @@ import javax.enterprise.context.ApplicationScoped;
 
 import entity.Gangguan;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
+import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class GangguanRepository implements PanacheRepositoryBase<Gangguan, Long> {
 
     public Uni<List<Gangguan>> allGangguanWithFilter(
-        Optional<Integer> status, 
-        Optional<LocalDate> tglAwal, 
-        Optional<LocalDate> tglAkhir
+        Integer status, 
+        LocalDate tglAwal, 
+        LocalDate tglAkhir,
+        Sort sortBy
     ) {
         StringBuilder query = new StringBuilder("1=1 ");
         Map<String,Object> parameter = new HashMap<>();
         
-        if (!status.isEmpty()) {
+        if (status != null) {
             query.append("AND status = :status ");
-            parameter.put("status", status.get());
+            parameter.put("status", status);
         }
 
-        if (!tglAwal.isEmpty() && !tglAkhir.isEmpty()) {
+        if (tglAwal != null && tglAkhir != null) {
             query.append("AND date(tgl) between :tgl_awal and :tgl_akhir ");
-            parameter.put("tgl_awal", tglAwal.get());
-            parameter.put("tgl_akhir", tglAkhir.get());
+            parameter.put("tgl_awal", tglAwal);
+            parameter.put("tgl_akhir", tglAkhir);
     
-        } else if (!tglAwal.isEmpty()) {
+        } else if (tglAwal != null) {
             query.append("AND date(tgl) >= :tgl_awal ");
-            parameter.put("tgl_awal", tglAwal.get());
+            parameter.put("tgl_awal", tglAwal);
             
-        } else if (!tglAkhir.isEmpty()) {
+        } else if (tglAkhir != null) {
             query.append("AND date(tgl) <= :tgl_akhir ");
-            parameter.put("tgl_akhir", tglAkhir.get());
+            parameter.put("tgl_akhir", tglAkhir);
         }
         
-        return find(query.toString(), parameter).list();
+        return find(query.toString(),sortBy,parameter).list();
     }
 
 }
