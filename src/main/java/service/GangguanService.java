@@ -38,28 +38,13 @@ public class GangguanService {
         Optional<LocalDate> tglAkhir
     ) {
 
-        StringBuilder query = new StringBuilder("1=1 ");
-        Map<String,Object> parameter = new HashMap<>();
+        // lakukan pengolahan data disini
 
-        if (!status.isEmpty()) {
-            query.append("AND status = :status ");
-            parameter.put("status", status.get());
-        }
-
-        if (!tglAwal.isEmpty() && !tglAkhir.isEmpty()) {
-            query.append("AND date(tgl) between :tgl_awal and :tgl_akhir ");
-            parameter.put("tgl_awal", tglAwal.get());
-            parameter.put("tgl_akhir", tglAkhir.get());
-
-        } else if (!tglAwal.isEmpty()) {
-            query.append("AND date(tgl) >= :tgl_awal ");
-            parameter.put("tgl_awal", tglAwal.get());
-
-        } else if (!tglAkhir.isEmpty()) {
-            query.append("AND date(tgl) <= :tgl_akhir ");
-            parameter.put("tgl_akhir", tglAkhir.get());
-        }
-
-        return gangguanRepository.customSearch(query.toString(),parameter);
+        return gangguanRepository.allGangguanWithFilter(status, tglAwal, tglAkhir)
+                .ifNoItem()
+                .after(Duration.ofMillis(10000))
+                .fail()
+                .onFailure()
+                .recoverWithUni(t -> Uni.createFrom().item(Collections.emptyList()));
     }
 }
