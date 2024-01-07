@@ -31,14 +31,12 @@ public class GangguanService {
                 .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
     }
 
-    public Uni<List<Gangguan>> getGangguanByCustomFilter(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
-
+    public Uni<List<Gangguan>> getGangguanWithFilter(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
         return gangguanRepository
                 .allGangguanWithFilter(
                         status,
                         tglAwal,
-                        tglAkhir,
-                        null)
+                        tglAkhir)
                 .ifNoItem()
                 .after(Duration.ofMillis(10000))
                 .fail()

@@ -19,8 +19,7 @@ public class GangguanRepository implements PanacheRepositoryBase<Gangguan, Long>
     public Uni<List<Gangguan>> allGangguanWithFilter(
         Integer status, 
         LocalDate tglAwal, 
-        LocalDate tglAkhir,
-        Sort sortBy
+        LocalDate tglAkhir
     ) {
         StringBuilder query = new StringBuilder("1=1 ");
         Map<String,Object> parameter = new HashMap<>();
@@ -44,7 +43,7 @@ public class GangguanRepository implements PanacheRepositoryBase<Gangguan, Long>
             parameter.put("tgl_akhir", tglAkhir);
         }
         
-        return find(query.toString(),sortBy,parameter).list();
+        return find(query.toString(),parameter).list();
     }
 
 }

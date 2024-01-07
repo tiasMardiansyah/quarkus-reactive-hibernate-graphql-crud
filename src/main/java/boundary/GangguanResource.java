@@ -31,14 +31,14 @@ public class GangguanResource {
     // tgl_akhir.get());
     // }
 
-    @Query("getGangguanByCustomFilter")
+    @Query("allGangguanWithFilter")
     @Description("Get all Gangguan using custom filter, Experimental ")
-    public Uni<List<Gangguan>> getGangguanByCustomFilter(
+    public Uni<List<Gangguan>> getGangguanWithFilter(
         @Name("status") Optional<Integer> status,
-        @Name("tgl_awal") Optional<LocalDate> tglAwal,
-        @Name("tgl_akhir") Optional<LocalDate> tglAkhir
+        @Name("tglAwal") Optional<LocalDate> tglAwal,
+        @Name("tglAkhir") Optional<LocalDate> tglAkhir
     ) {
-        return gangguanService.getGangguanByCustomFilter(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
+        return gangguanService.getGangguanWithFilter(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
     }
 
 }
