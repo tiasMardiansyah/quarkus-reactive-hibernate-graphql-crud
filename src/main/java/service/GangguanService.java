@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import entity.Gangguan;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import repository.GangguanRepository;
 
 @ApplicationScoped
@@ -22,8 +22,8 @@ public class GangguanService {
     GangguanRepository gangguanRepository;
 
     public Uni<List<Gangguan>> getAllGangguan() {
-        return gangguanRepository
-                .listAll(Sort.by("tgl"))
+        return Uni.createFrom().item(() -> (gangguanRepository.listAll(Sort.by("tgl"))))
+                .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
                 .ifNoItem()
                 .after(Duration.ofMillis(10000))
                 .fail()
@@ -32,11 +32,12 @@ public class GangguanService {
     }
 
     public Uni<List<Gangguan>> getGangguanWithFilter(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
-        return gangguanRepository
-                .allGangguanWithFilter(
+        return Uni.createFrom()
+                .item(() -> gangguanRepository.allGangguanWithFilter(
                         status,
                         tglAwal,
-                        tglAkhir)
+                        tglAkhir))
+                .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
                 .ifNoItem()
                 .after(Duration.ofMillis(10000))
                 .fail()

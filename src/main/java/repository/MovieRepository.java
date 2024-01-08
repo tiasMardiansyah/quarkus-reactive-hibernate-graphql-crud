@@ -1,15 +1,16 @@
 package repository;
 
-import javax.enterprise.context.ApplicationScoped;
+// import javax.enterprise.context.ApplicationScoped;
 
-import entity.Movie;
-import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
-import io.smallrye.mutiny.Uni;
+// import entity.Movie;
+// import io.quarkus.hibernate.orm.panache.PanacheRepository;
+// import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+// import io.smallrye.mutiny.Uni;
 
-@ApplicationScoped
-public class MovieRepository implements PanacheRepositoryBase<Movie, Long> {
+// @ApplicationScoped
+// public class MovieRepository implements PanacheRepositoryBase<Movie, Long> {
     
-    public Uni<Movie> findByMovieId(Long id) {
-        return findById(id);
-    }
-}
+//     public Movie findByMovieId(Long id) {
+//         return findById(id);
+//     }
+// }

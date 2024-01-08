@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
@@ -14,6 +11,7 @@ import org.eclipse.microprofile.graphql.Query;
 import entity.Gangguan;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.cli.annotations.Description;
+import jakarta.inject.Inject;
 import service.GangguanService;
 
 @GraphQLApi

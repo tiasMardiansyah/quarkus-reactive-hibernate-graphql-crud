@@ -2,25 +2,13 @@ quarkus:
   log:
     level: INFO
   hibernate-orm:
-    log:
-      sql: true
-    dialect: org.hibernate.dialect.PostgreSQL10Dialect
-    jdbc:
-      timezone: UTC
+    dialect: org.hibernate.dialect.ClickHouseDialect
   datasource:
-    db-kind: postgresql
-    username: user
-    password: password
-    reactive:
-      url: vertx-reactive:postgresql://localhost:5432/my_db
-      max-size: 20
-#"%prod":
-#  quarkus:
-#    hibernate-orm:
-#      sql-load-script: no-file
-#      database:
-#        generation: none
-mp:
+    db-kind: clickhouse
+    username: default
+    password:
+    jdbc: 
+      url: jdbc:clickhouse://localhost:8123/my_db
   graphql:
     showErrorMessage:
       - control.exception.AlreadyExistingException  

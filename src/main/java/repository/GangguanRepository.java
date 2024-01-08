@@ -4,19 +4,14 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import javax.enterprise.context.ApplicationScoped;
-
 import entity.Gangguan;
-import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
-import io.quarkus.panache.common.Sort;
-import io.smallrye.mutiny.Uni;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class GangguanRepository implements PanacheRepositoryBase<Gangguan, Long> {
 
-    public Uni<List<Gangguan>> allGangguanWithFilter(
+    public List<Gangguan> allGangguanWithFilter(
         Integer status, 
         LocalDate tglAwal, 
         LocalDate tglAkhir
