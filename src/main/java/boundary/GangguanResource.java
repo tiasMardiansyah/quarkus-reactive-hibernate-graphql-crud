@@ -39,4 +39,24 @@ public class GangguanResource {
         return gangguanService.getGangguanWithFilter(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
     }
 
+    @Query("allGangguanWithFilterQueryMapped")
+    @Description("Get all Gangguan using custom filter, Experimental ")
+    public Uni<List<Gangguan>> getGangguanWithFilterQueryMapped(
+        @Name("status") Optional<Integer> status,
+        @Name("tglAwal") Optional<LocalDate> tglAwal,
+        @Name("tglAkhir") Optional<LocalDate> tglAkhir
+    ) {
+        return gangguanService.getGangguanWithFilterQueryMapped(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
+    }
+
+     @Query("allGangguanWithFilterQueryManual")
+    @Description("Get all Gangguan using custom filter, Experimental ")
+    public Uni<List<Gangguan>> getGangguanWithFilterQueryManual(
+        @Name("status") Optional<Integer> status,
+        @Name("tglAwal") Optional<LocalDate> tglAwal,
+        @Name("tglAkhir") Optional<LocalDate> tglAkhir
+    ) {
+        return gangguanService.getGangguanWithFilterQueryManual(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
+    }
+
 }

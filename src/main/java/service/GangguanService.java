@@ -44,4 +44,32 @@ public class GangguanService {
                 .onFailure()
                 .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
     }
+
+    public Uni<List<Gangguan>> getGangguanWithFilterQueryManual(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
+        return Uni.createFrom()
+                .item(() -> gangguanRepository.allGangguanWithFilterCustomQueryManual(
+                        status,
+                        tglAwal,
+                        tglAkhir))
+                .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
+                .ifNoItem()
+                .after(Duration.ofMillis(10000))
+                .fail()
+                .onFailure()
+                .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
+    }
+
+    public Uni<List<Gangguan>> getGangguanWithFilterQueryMapped(Integer status, LocalDate tglAwal, LocalDate tglAkhir) {
+        return Uni.createFrom()
+                .item(() -> gangguanRepository.allGangguanWithFilterCustomQueryManual(
+                        status,
+                        tglAwal,
+                        tglAkhir))
+                .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
+                .ifNoItem()
+                .after(Duration.ofMillis(10000))
+                .fail()
+                .onFailure()
+                .recoverWithUni(throwable -> Uni.createFrom().item(Collections.emptyList()));
+    }
 }
