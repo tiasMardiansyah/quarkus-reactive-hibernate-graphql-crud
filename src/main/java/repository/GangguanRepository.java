@@ -12,33 +12,22 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class GangguanRepository implements PanacheRepositoryBase<Gangguan, Long> {
 
     public List<Gangguan> allGangguanWithFilter(
-        Integer status, 
-        LocalDate tglAwal, 
-        LocalDate tglAkhir
-    ) {
+            LocalDate dateFrom,
+            LocalDate dateTo,
+            String posko,
+            int id_uid,
+            int id_up3) {
         StringBuilder query = new StringBuilder("1=1 ");
-        Map<String,Object> parameter = new HashMap<>();
-        
-        if (status != null) {
-            query.append("AND status = :status ");
-            parameter.put("status", status);
-        }
+        Map<String, Object> parameter = new HashMap<>();
 
-        if (tglAwal != null && tglAkhir != null) {
-            query.append("AND date(tgl) between :tgl_awal and :tgl_akhir ");
-            parameter.put("tgl_awal", tglAwal);
-            parameter.put("tgl_akhir", tglAkhir);
-    
-        } else if (tglAwal != null) {
-            query.append("AND date(tgl) >= :tgl_awal ");
-            parameter.put("tgl_awal", tglAwal);
-            
-        } else if (tglAkhir != null) {
-            query.append("AND date(tgl) <= :tgl_akhir ");
-            parameter.put("tgl_akhir", tglAkhir);
-        }
-        
-        return find(query.toString(),parameter).list();
+        query.append("(date_from = :dateFrom,date_to = :dateTo, posko = :posko, id_uid = :id_uid, id_up3 = :id_up3)");
+        parameter.put("dateFrom", dateFrom);
+        parameter.put("dateTo", dateTo);
+        parameter.put("posko", posko);
+        parameter.put("id_uid", id_uid);
+        parameter.put("id_up3", id_up3);
+
+        return find(query.toString(), parameter).list();
     }
 
 }

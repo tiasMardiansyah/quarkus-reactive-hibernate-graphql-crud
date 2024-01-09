@@ -6,9 +6,9 @@ quarkus:
   datasource:
     db-kind: clickhouse
     username: default
-    password:
+    password: flJ2FpIwAb
     jdbc: 
-      url: jdbc:clickhouse://localhost:8123/my_db
+      url: jdbc:clickhouse://192.168.1.81:30123/default
   graphql:
     showErrorMessage:
       - control.exception.AlreadyExistingException  

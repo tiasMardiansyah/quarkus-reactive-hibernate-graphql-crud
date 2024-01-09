@@ -32,11 +32,15 @@ public class GangguanResource {
     @Query("allGangguanWithFilter")
     @Description("Get all Gangguan using custom filter, Experimental ")
     public Uni<List<Gangguan>> getGangguanWithFilter(
-        @Name("status") Optional<Integer> status,
-        @Name("tglAwal") Optional<LocalDate> tglAwal,
-        @Name("tglAkhir") Optional<LocalDate> tglAkhir
+            @Name("dateFrom") Optional<LocalDate> dateFrom,
+            @Name("dateTo") Optional<LocalDate> dateTo,
+            @Name("posko") Optional<String> posko,
+            @Name("id_uid") Optional<Integer> id_uid,
+            @Name("id_up3") Optional<Integer> id_up3
+
     ) {
-        return gangguanService.getGangguanWithFilter(status.orElse(null), tglAwal.orElse(null), tglAkhir.orElse(null));
+        return gangguanService.getGangguanWithFilter(dateFrom.orElse(null), dateTo.orElse(null), posko.orElse(null),
+                id_uid.orElse(null), id_up3.orElse(null));
     }
 
 }
